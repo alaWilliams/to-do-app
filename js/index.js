@@ -2,28 +2,29 @@ const input = document.querySelector('.task-input');
 const taskList = document.querySelector('.task-list');
 
 const BACKEND_ROOT_URL = 'http://localhost:3001';
+import { Todos } from "./class/Todos.js";
+
+const todos = new Todos(BACKEND_ROOT_URL)
 
 input.disabled = true;
 
-
 const renderTask = (task) => {
-  const element = document.createElement('li');
-  element.innerHTML = task;
-  taskList.appendChild(element);
-  element.className = 'item';
+  const li = document.createElement('li');
+  li.className = 'list-item';
+  li.innerHTML = task.getText();
+  taskList.appendChild(li);
+  
 }
 
-const getTasks = async () => {
-  try {
-    const response = await fetch(BACKEND_ROOT_URL);
-    const json = await response.json();
-    json.forEach(task => {
-      renderTask(task.description)
+const getTasks = () => {
+  todos.getTasks().then((tasks) => {
+    tasks.forEach(task => {
+      renderTask(task)
     })
     input.disabled = false;
-  } catch (error) {
-    alert (`Error retrieving tasks ${error.message}`)
-  }
+  }).catch((error) => {
+    alert(error)
+  })
 }
 
 const saveTask = async (task) => {
@@ -44,16 +45,16 @@ const saveTask = async (task) => {
 
 
 getTasks();
-input.addEventListener('keypress', (e) => {
- const newTask = input.value.trim();
-  if (e.key === 'Enter') {
-    e.preventDefault();
-    if (newTask !== '') {
-      saveTask(newTask).then((json) => {
-        renderTask(newTask);
-        input.value = ''
+input.addEventListener('keypress', (event) => {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    const task = input.value.trim();
+    if (task !== '') {
+      todos.addTask(task).then((task) => {
+        renderTask(task);
+        input.value = '';
+        input.focus();
       })
-      
     }
   }
 })

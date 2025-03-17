@@ -8,6 +8,7 @@ app.use(express.json());
 const port = 3001;
 
 app.get("/", (req, res) => {
+
   const pool = openDB();
 
   pool.query('SELECT * FROM task', (error, result) => {

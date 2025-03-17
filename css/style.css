@@ -29,7 +29,7 @@ body {
     padding-left: 1rem;
   }
   
-  .item {
+  .list-item {
     list-style-type: none;
     margin: 1rem;
     background-color: #ffffff;
