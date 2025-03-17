@@ -11,9 +11,31 @@ input.disabled = true;
 const renderTask = (task) => {
   const li = document.createElement('li');
   li.className = 'list-item';
-  li.innerHTML = task.getText();
-  taskList.appendChild(li);
-  
+  li.setAttribute('data-key', task.getId().toString());
+  renderSpan(li,task.getText());
+  renderLink(li,task.getId());
+  taskList.append(li);
+}
+
+const renderSpan = (li, text) => {
+  const span = li.appendChild(document.createElement('span'));
+  span.innerHTML = text;
+}
+
+const renderLink = (li, id) => {
+  const a = li.appendChild(document.createElement('a'));
+  a.innerHTML = '<i class="bi bi-trash"></i>';
+  a.style = 'float: right';
+  a.addEventListener('click', (event) => {
+    todos.removeTask(id).then((removed_id)=> {
+      const li_to_remove = document.querySelector(`[data-key='${removed_id}']`);
+      if (li_to_remove) {
+        taskList.removeChild(li_to_remove)
+      }
+    }).catch((error) => {
+      alert(error)
+    })
+  })
 }
 
 const getTasks = () => {
