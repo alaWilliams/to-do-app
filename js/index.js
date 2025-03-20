@@ -1,7 +1,7 @@
 const input = document.querySelector('.task-input');
 const taskList = document.querySelector('.task-list');
 
-const BACKEND_ROOT_URL = 'http://localhost:3001';
+const BACKEND_ROOT_URL = 'http://localhost:3001/api';
 import { Todos } from "./class/Todos.js";
 
 const todos = new Todos(BACKEND_ROOT_URL)
