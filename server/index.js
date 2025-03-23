@@ -13,5 +13,6 @@ const port = process.env.PORT;
 app.use('/api', todoRouter)
 
 
-app.listen(port);
+app.listen(port || 3001, () => {
+  console.log(`Server running on port ${port}`)});
 
