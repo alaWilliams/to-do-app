@@ -11,6 +11,8 @@ todoRouter.get("/", async (req, res) => {
   } catch (error) {
     res.statusMessage = error
     res.status(500).json({error: error})
+    res.send("Hello from the server!");
+
   }
 });
 
