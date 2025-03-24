@@ -1,7 +1,7 @@
 const input = document.querySelector('.task-input');
 const taskList = document.querySelector('.task-list');
 
-const BACKEND_ROOT_URL = 'http://localhost:3001/api';
+const BACKEND_ROOT_URL = 'https://to-do-app-server-rsyf.onrender.com';
 import { Todos } from "./class/Todos.js";
 
 const todos = new Todos(BACKEND_ROOT_URL)
